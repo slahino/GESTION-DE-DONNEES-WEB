@@ -1,0 +1,15 @@
+Préliminaires :
+
+Aller ajouter la colonne deleted_at dans la table item. Pour cela on fait cette commande sur phpmyadmin :
+ALTER TABLE item
+ADD COLUMN deleted_at datetime
+
+Dans le model "Item", il faut ajouter le "use SoftDeletes" (faire attention au chemin) pour activer le soft deletes. Il faut ensuite ajouter la ligne : "protected $dates = ['deleted_at'];" ce qui va permettre de lier la date de suppression à la colonne précédemment créée dans la base de données.
+
+___________
+
+
+Modification des requêtes :
+
+La requête 3.2 a été modifiée en conséquence en y rajoutant la méthode withTrashed() pour que les items éventuellement supprimés soient malgré tout affichés. La commande de suppression d'un item est indiquée en commentaire au dessus du code.
+Pour la requête 3.1 et 3.3, on appelle la méthode withTrashed() directement dans le model "Commande" car on utilise l'association plusieurs à plusieurs de la fonction "items".
